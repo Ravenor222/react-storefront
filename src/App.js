@@ -1,13 +1,20 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
-
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField'
 
 function App() {
+const [state, setState] = useState({
+  query:'',
+  results: {},
+  loading: false,
+  message:''
+})
 
   useEffect(()=>{
-    axios.get('http://localhost:3001/').then((res)=> console.log(res));
+    axios.get('http://localhost:3001/').then((res) => setState(res.data))
   })
 
 
@@ -17,17 +24,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <TextField style={{backgroundColor:'white', marginBottom:10, }}></TextField>
+        <Button style={{backgroundColor:'blue', color:'white'}} onClick={()=>{console.log(state)}}>Submit</Button>
       </header>
     </div>
   );
