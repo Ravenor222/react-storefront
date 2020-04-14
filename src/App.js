@@ -3,30 +3,40 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField'
+import Search from './Search.js'
+
+const fetchSearchResults = (query) => {
+  
+}
+
 
 function App() {
-const [state, setState] = useState({
-  query:'',
-  results: {},
-  loading: false,
-  message:''
-})
-
+const [state, setState] = useState()
+const [searchValue, setSearchValue] = useState('');
   useEffect(()=>{
     axios.get('http://localhost:3001/').then((res) => setState(res.data))
   })
 
+  const searchHandler = (value) => {
+    setSearchValue(value);
+    console.log(state)
+  }
+  
 
-
+  // let updateItems = state.filter((item) => {
+  //   return item.name.toLowerCase().includes(searchValue)
+  // })
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <TextField style={{backgroundColor:'white', marginBottom:10, }}></TextField>
-        <Button style={{backgroundColor:'blue', color:'white'}} onClick={()=>{console.log(state)}}>Submit</Button>
+        <Search searchValue={searchValue} searchHandler={searchHandler} styles={{marginBottom:10}}/>
       </header>
+
+      <div className="topBar">
+        {}
+      </div>
     </div>
   );
 }
