@@ -6,17 +6,12 @@ import Button from '@material-ui/core/Button';
 import Search from './Search.js'
 import Item from './item'
 
-const fetchSearchResults = (query) => {
-  
-}
-
-
 function App() {
 const [state, setState] = useState()
 const [searchValue, setSearchValue] = useState('');
 
   useEffect(()=>{
-    axios.get('https://interview-scheduler-2020.herokuapp.com/api/days').then((res) => setState(res.data));
+    axios.get('http://localhost:3001/').then((res) => setState(res.data));
   },[])
 
 
@@ -24,15 +19,7 @@ const [searchValue, setSearchValue] = useState('');
     setSearchValue(value);
     console.log(state)
   }
-  
- 
 
-  
-   
-
-  // let updateItems = state.filter((item) => {
-  //   return item.name.toLowerCase().includes(searchValue)
-  // })
 
   return (
     <div className="App">
@@ -42,17 +29,20 @@ const [searchValue, setSearchValue] = useState('');
         <Button onClick={()=>{console.log(state)}}/>
 
         <div style={{display:'flex', justifyContent:'space-around', flexDirection:'row',width:'-webkit-fill-available'}}>
-        {state===undefined ?
-         <p>no results</p> :
-          state.map((item)  => {
-      return (
-        <Item 
-        name={item.name}
-        id={item.id}
-        spots={item.spots}
-        />
-      )
-    })}
+        
+        {
+        state===undefined ? <p>no results</p> : state.filter((item) => {
+          return item.name.toLowerCase().includes(searchValue)
+        }).map((item)  => {
+          return (
+            <Item 
+            name={item.name}
+            id={item.id}
+            spots={item.spots}
+            />
+          )
+        })}
+
       </div>
 
       </header>
