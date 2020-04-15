@@ -5,6 +5,7 @@ import axios from 'axios'
 import Button from '@material-ui/core/Button';
 import Search from './Search.js'
 import Item from './item'
+import Nav from './Nav'
 
 function App() {
 const [state, setState] = useState()
@@ -17,18 +18,17 @@ const [searchValue, setSearchValue] = useState('');
 
   const searchHandler = (value) => {
     setSearchValue(value);
-    console.log(state)
   }
 
 
   return (
     <div className="App">
       <header className="App-header">
+        <Nav style={{backgroundColor:'transparent'}}/>
         <img src={logo} className="App-logo" alt="logo" />
         <Search searchValue={searchValue} searchHandler={searchHandler} styles={{marginBottom:10}}/>
-        <Button onClick={()=>{console.log(state)}}/>
 
-        <div style={{display:'flex', justifyContent:'space-around', flexDirection:'row',width:'-webkit-fill-available'}}>
+        <div style={{display:'flex',flexWrap:'wrap' ,justifyContent:'space-around', flexDirection:'row',width:'-webkit-fill-available', marginTop:'45px'}}>
         
         {
         state===undefined ? <p>no results</p> : state.filter((item) => {
@@ -38,7 +38,9 @@ const [searchValue, setSearchValue] = useState('');
             <Item 
             name={item.name}
             id={item.id}
-            spots={item.spots}
+            company={item.company}
+            size={item.size}
+            picture={item.picture}
             />
           )
         })}

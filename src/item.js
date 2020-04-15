@@ -6,10 +6,11 @@ const Item = (props) => {
 
 
     return (
-        <div style={{backgroundColor:'brown', width:'200px', height:'200px'}}>
+        <div style={{backgroundColor:'teal', width:'275px', height:'275px', borderRadius:'25%', margin:10}}>
             <h3>{props.name}</h3>
-            <h4>{props.company}</h4>
-            <p>{props.id}</p>
+            <p>{props.company}</p>
+            <p>size: {props.size}</p>
+            <p>id: {props.id}</p>
         </div>
     )
 }
