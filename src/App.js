@@ -8,7 +8,7 @@ import Item from './item'
 import Nav from './Nav'
 
 function App() {
-const [state, setState] = useState()
+const [state, setState] = useState([])
 const [searchValue, setSearchValue] = useState('');
 
   useEffect(()=>{
@@ -29,11 +29,9 @@ const [searchValue, setSearchValue] = useState('');
         <Search searchValue={searchValue} searchHandler={searchHandler} styles={{marginBottom:10}}/>
 
         <div style={{display:'flex',flexWrap:'wrap' ,justifyContent:'space-around', flexDirection:'row',width:'-webkit-fill-available', marginTop:'45px'}}>
-        
-        {
-        state===undefined ? <p>no results</p> : state.filter((item) => {
-          return item.name.toLowerCase().includes(searchValue)
-        }).map((item)  => {
+   
+
+        {state.map((item)=>{
           return (
             <Item 
             name={item.name}
@@ -44,6 +42,7 @@ const [searchValue, setSearchValue] = useState('');
             />
           )
         })}
+
 
       </div>
 
