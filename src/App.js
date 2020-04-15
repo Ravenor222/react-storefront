@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect, useCallback} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
 import Button from '@material-ui/core/Button';
 import Search from './Search.js'
+import Item from './item'
 
 const fetchSearchResults = (query) => {
   
@@ -13,15 +14,21 @@ const fetchSearchResults = (query) => {
 function App() {
 const [state, setState] = useState()
 const [searchValue, setSearchValue] = useState('');
+
   useEffect(()=>{
-    axios.get('http://localhost:3001/').then((res) => setState(res.data))
-  })
+    axios.get('https://interview-scheduler-2020.herokuapp.com/api/days').then((res) => setState(res.data));
+  },[])
+
 
   const searchHandler = (value) => {
     setSearchValue(value);
     console.log(state)
   }
   
+ 
+
+  
+   
 
   // let updateItems = state.filter((item) => {
   //   return item.name.toLowerCase().includes(searchValue)
@@ -32,11 +39,25 @@ const [searchValue, setSearchValue] = useState('');
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Search searchValue={searchValue} searchHandler={searchHandler} styles={{marginBottom:10}}/>
+        <Button onClick={()=>{console.log(state)}}/>
+
+        <div style={{display:'flex', justifyContent:'space-around', flexDirection:'row',width:'-webkit-fill-available'}}>
+        {state===undefined ?
+         <p>no results</p> :
+          state.map((item)  => {
+      return (
+        <Item 
+        name={item.name}
+        id={item.id}
+        spots={item.spots}
+        />
+      )
+    })}
+      </div>
+
       </header>
 
-      <div className="topBar">
-        {}
-      </div>
+     
     </div>
   );
 }
