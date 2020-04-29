@@ -20,7 +20,9 @@ const [searchValue, setSearchValue] = useState('');
     setSearchValue(value);
   }
 
+let ex = state.filter((item) => item.name.match(searchValue))
 
+console.log(ex)
   return (
     <div className="App">
       <header className="App-header">
@@ -31,7 +33,9 @@ const [searchValue, setSearchValue] = useState('');
         <div style={{display:'flex',flexWrap:'wrap' ,justifyContent:'space-around', flexDirection:'row',width:'-webkit-fill-available', marginTop:'45px'}}>
    
 
-        {state.map((item)=>{
+        
+        
+        {ex.map((item)=> {
           return (
             <Item 
             name={item.name}
